@@ -3,34 +3,49 @@ using UnityEngine;
 public class Lever : MonoBehaviour
 {
     [SerializeField] private Transform leverPivot;
-    [SerializeField] private Chain chainToExtend;
-    [SerializeField] private float extendAmount = 3f;
+    [SerializeField] private float releaseSpeed = 20f;
+    [SerializeField] private float pushDownSpeed = 20f;
+    [SerializeField] private float minAngle = 40f;
+    [SerializeField] private float maxAngle = 130f;
+    [SerializeField] private float activationAngle = 45;
 
-    private HingeJoint joint;
-    private Rigidbody rb;
-    private bool isActivated;
+    public bool isActivated;
+    private float _currentAngle;
 
     private void Start()
     {
-        joint = GetComponentInChildren<HingeJoint>();
-        rb = GetComponentInChildren<Rigidbody>();
+        float startX = leverPivot.localEulerAngles.x;
+        if (startX > 180f) startX -= 360f;
+        _currentAngle = Mathf.Clamp(startX, minAngle, maxAngle);
     }
 
     private void Update()
     {
         CheckForActivation();
+        Release();
+    }
+
+    private void Release()
+    {
+        _currentAngle = Mathf.Clamp(_currentAngle + releaseSpeed * Time.deltaTime, minAngle, maxAngle);
+        leverPivot.localRotation = Quaternion.Euler(_currentAngle, 0f, 0f);
+    }
+
+    public void PushDown()
+    {
+        _currentAngle = Mathf.Clamp(_currentAngle + (-releaseSpeed - pushDownSpeed) * Time.deltaTime, minAngle, maxAngle);
+        leverPivot.localRotation = Quaternion.Euler(_currentAngle, 0f, 0f);
     }
 
     private void CheckForActivation()
     {
-        if (isActivated) return;
-
-        if (leverPivot.localEulerAngles.x < 315f && leverPivot.localEulerAngles.x > 300f)
+        if (leverPivot.localEulerAngles.x < activationAngle)
         {
             isActivated = true;
-            chainToExtend.length += extendAmount;
-            Destroy(joint);
-            Destroy(rb);
+        }
+        else
+        {
+            isActivated = false;
         }
     }
 }

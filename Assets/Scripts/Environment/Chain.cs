@@ -5,9 +5,16 @@ using UnityEngine.Splines;
 public class Chain : MonoBehaviour
 {
     public Transform chainStartTranform;
-    public float length = 6f;
+    public float usedLength
+    {
+        get
+        {
+            return Vector3.Distance(chainStartTranform.position, connectedTransform.position);
+        }
+    }
 
     [SerializeField] private Transform connectedTransform;
+    [SerializeField] private BodyPart connectedPart;
 
     private SplineContainer splineContainer;
 
@@ -19,6 +26,13 @@ public class Chain : MonoBehaviour
     private void Update()
     {
         UpdateChain();
+    }
+
+    public void TryToShortenChain(float amount)
+    {
+        LimbMover limb = connectedPart as LimbMover;
+        Vector3 dirToChain = (chainStartTranform.position - connectedTransform.position).normalized;
+        limb.limbTarget.transform.position += dirToChain * amount;
     }
 
     private void UpdateChain()
