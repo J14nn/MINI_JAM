@@ -1,10 +1,8 @@
 using System;
 using UnityEngine;
 
-public class LimbMover : MonoBehaviour
+public class LimbMover : BodyPart
 {
-    [HideInInspector] public LimbInteraction limbInteraction;
-
     [SerializeField] private Transform limbTarget;
     [SerializeField] private Transform limbPivot;
     [SerializeField] private LayerMask defaultLayer;
@@ -26,7 +24,7 @@ public class LimbMover : MonoBehaviour
         SetTargetRotation();
     }
 
-    public void MoveLimb()
+    public override void Move()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, defaultLayer))
@@ -48,14 +46,14 @@ public class LimbMover : MonoBehaviour
     private void SetTargetPosition(Vector3 hitPoint)
     {
         float limbAngle = GetAngleBetweenTwoPositions(limbPivot.position, limbTarget.position);
-        Debug.Log(limbAngle);
+        //Debug.Log(limbAngle);
 
         float distChainToHitPoint = Vector3.Distance(chain.chainStartTranform.position, hitPoint);
 
-        if (distChainToHitPoint > chain.maxLength)
+        if (distChainToHitPoint > chain.length)
         {
             Vector3 dirChainToHitPoint = (hitPoint - chain.chainStartTranform.position).normalized;
-            limbTarget.position = chain.chainStartTranform.position + dirChainToHitPoint * chain.maxLength;
+            limbTarget.position = chain.chainStartTranform.position + dirChainToHitPoint * chain.length;
         }
         else
         {

@@ -5,8 +5,7 @@ using UnityEngine.Splines;
 public class Chain : MonoBehaviour
 {
     public Transform chainStartTranform;
-
-    [field: SerializeField] public float maxLength { get; private set; } = 6f;
+    public float length = 6f;
 
     [SerializeField] private Transform connectedTransform;
 

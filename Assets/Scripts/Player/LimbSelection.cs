@@ -4,7 +4,7 @@ public class LimbSelection : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
 
-    private LimbMover selectedLimb;
+    private BodyPart selectedPart;
 
     private void Update()
     {
@@ -17,24 +17,24 @@ public class LimbSelection : MonoBehaviour
 
     private void MoveSelectedLimb()
     {
-        if (!selectedLimb) return;
+        if (!selectedPart) return;
 
-        selectedLimb.MoveLimb();
+        selectedPart.Move();
     }
 
     private void Interact()
     {
-        if (!selectedLimb)
+        if (!selectedPart)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
             {
-                selectedLimb = hit.transform.GetComponentInParent<LimbMover>();
+                selectedPart = hit.transform.GetComponentInParent<BodyPart>();
             }
         }
-        else if (selectedLimb && (!selectedLimb.limbInteraction || !selectedLimb.limbInteraction.TryToInteract()))
+        else if (selectedPart && (!selectedPart.limbInteraction || !selectedPart.limbInteraction.TryToInteract()))
         {
-            selectedLimb = null;
+            selectedPart = null;
         }
     }
 }
