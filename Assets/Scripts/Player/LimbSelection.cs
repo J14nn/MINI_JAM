@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class LimbSelection : MonoBehaviour
 {
-    [SerializeField] private LayerMask playerLayer;
+    [HideInInspector] public BodyPart selectedPart;
 
-    private BodyPart selectedPart;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private MainChain mainChain;
 
     private void Update()
     {
@@ -20,6 +21,7 @@ public class LimbSelection : MonoBehaviour
         if (!selectedPart) return;
 
         selectedPart.Move();
+        mainChain.UpdateChainsAndLimbs();
     }
 
     private void Interact()

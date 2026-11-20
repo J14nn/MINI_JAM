@@ -3,15 +3,17 @@ using UnityEngine;
 
 public class LimbMover : BodyPart
 {
-    [SerializeField] private Transform limbTarget;
+    public Transform limbTarget;
     [SerializeField] private Transform limbPivot;
     [SerializeField] private LayerMask defaultLayer;
     [SerializeField] private float minReach = 1f;
-    [SerializeField] private Chain chain;
-    [SerializeField] private float minRotationAngle = 0f;
-    [SerializeField] private float maxRotationAngle = 360f;
+
+    [SerializeField] private float acceleration = 40f;
+    [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private float friction = 2f;
 
     private float limbStartPosZ;
+    private Vector3 velocity;
 
     private void Start()
     {
@@ -27,12 +29,27 @@ public class LimbMover : BodyPart
     public override void Move()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, defaultLayer))
         {
             Vector3 hitPoint = hit.point;
             hitPoint.z = limbStartPosZ;
 
-            SetTargetPosition(hitPoint);
+            Vector3 direction = hitPoint - limbTarget.position;
+
+            if (direction.magnitude > 0.05f)
+            {
+                velocity += direction.normalized * acceleration * Time.deltaTime;
+            }
+
+            velocity -= velocity * friction * Time.deltaTime;
+
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = velocity.normalized * maxSpeed;
+            }
+
+            SetTargetPosition(limbTarget.position + velocity * Time.deltaTime);
             SetTargetRotation();
         }
     }
@@ -45,29 +62,16 @@ public class LimbMover : BodyPart
 
     private void SetTargetPosition(Vector3 hitPoint)
     {
-        float limbAngle = GetAngleBetweenTwoPositions(limbPivot.position, limbTarget.position);
-        //Debug.Log(limbAngle);
+        float distLimbPivotToHitPoint = Vector3.Distance(limbPivot.position, hitPoint);
 
-        float distChainToHitPoint = Vector3.Distance(chain.chainStartTranform.position, hitPoint);
-
-        if (distChainToHitPoint > chain.length)
+        if (distLimbPivotToHitPoint < minReach)
         {
-            Vector3 dirChainToHitPoint = (hitPoint - chain.chainStartTranform.position).normalized;
-            limbTarget.position = chain.chainStartTranform.position + dirChainToHitPoint * chain.length;
+            Vector3 dirLimbPivotToHitPoint = (hitPoint - limbPivot.position).normalized;
+            limbTarget.position = limbPivot.position + dirLimbPivotToHitPoint * minReach;
         }
         else
         {
-            float distLimbPivotToHitPoint = Vector3.Distance(limbPivot.position, hitPoint);
-
-            if (distLimbPivotToHitPoint < minReach)
-            {
-                Vector3 dirLimbPivotToHitPoint = (hitPoint - limbPivot.position).normalized;
-                limbTarget.position = limbPivot.position + dirLimbPivotToHitPoint * minReach;
-            }
-            else
-            {
-                limbTarget.position = hitPoint;
-            }
+            limbTarget.position = hitPoint;
         }
     }
 

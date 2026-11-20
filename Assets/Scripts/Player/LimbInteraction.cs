@@ -11,6 +11,21 @@ public class LimbInteraction : MonoBehaviour
     private void Update()
     {
         MoveItem();
+        UpdateInteraction();
+    }
+
+    private void UpdateInteraction()
+    {
+        Collider[] hits = Physics.OverlapSphere(itemPosition.position, itemGrabReach, interactableLayer);
+
+        if (hits != null && hits.Length > 0)
+        {
+            Lever lever = hits[0].transform.GetComponentInParent<Lever>();
+            if (lever)
+            {
+                lever.PushDown();
+            }
+        }
     }
 
     public bool TryToInteract()
