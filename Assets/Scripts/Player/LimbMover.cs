@@ -8,11 +8,22 @@ public class LimbMover : MonoBehaviour
     [SerializeField] private Transform limbTarget;
     [SerializeField] private Transform limbPivot;
     [SerializeField] private LayerMask defaultLayer;
-    [SerializeField] private float handMinReach = 1f;
+    [SerializeField] private float minReach = 1f;
+    [SerializeField] private Chain chain;
+    [SerializeField] private float minRotationAngle = 0f;
+    [SerializeField] private float maxRotationAngle = 360f;
+
+    private float limbStartPosZ;
 
     private void Start()
     {
+        limbStartPosZ = limbPivot.transform.position.z;
+        Vector3 limbTargetPos = limbTarget.position;
+        limbTargetPos.z = limbStartPosZ;
+        limbTarget.position = limbTargetPos;
+
         limbInteraction = GetComponent<LimbInteraction>();
+        SetTargetRotation();
     }
 
     public void MoveLimb()
@@ -20,24 +31,45 @@ public class LimbMover : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, defaultLayer))
         {
-            SetLimbTargetPos(hit.point);
-            float angle = GetAngleBetweenTwoPositions(limbPivot.position, hit.point);
-            limbTarget.eulerAngles = new Vector3(angle + 90f, -90f, 0);
+            Vector3 hitPoint = hit.point;
+            hitPoint.z = limbStartPosZ;
+
+            SetTargetPosition(hitPoint);
+            SetTargetRotation();
         }
     }
 
-    private void SetLimbTargetPos(Vector3 hitPoint)
+    private void SetTargetRotation()
     {
-        float distLimbPivotToHitPoint = Vector3.Distance(limbPivot.position, hitPoint);
+        float angle = GetAngleBetweenTwoPositions(limbPivot.position, limbTarget.position);
+        limbTarget.eulerAngles = new Vector3(angle + 90f, -90f, 0);
+    }
 
-        if (distLimbPivotToHitPoint < handMinReach)
+    private void SetTargetPosition(Vector3 hitPoint)
+    {
+        float limbAngle = GetAngleBetweenTwoPositions(limbPivot.position, limbTarget.position);
+        Debug.Log(limbAngle);
+
+        float distChainToHitPoint = Vector3.Distance(chain.chainStartTranform.position, hitPoint);
+
+        if (distChainToHitPoint > chain.maxLength)
         {
-            Vector3 dirLimbPivotToHitPoint = (hitPoint - limbPivot.position).normalized;
-            limbTarget.position = limbPivot.position + dirLimbPivotToHitPoint * handMinReach;
+            Vector3 dirChainToHitPoint = (hitPoint - chain.chainStartTranform.position).normalized;
+            limbTarget.position = chain.chainStartTranform.position + dirChainToHitPoint * chain.maxLength;
         }
         else
         {
-            limbTarget.position = hitPoint;
+            float distLimbPivotToHitPoint = Vector3.Distance(limbPivot.position, hitPoint);
+
+            if (distLimbPivotToHitPoint < minReach)
+            {
+                Vector3 dirLimbPivotToHitPoint = (hitPoint - limbPivot.position).normalized;
+                limbTarget.position = limbPivot.position + dirLimbPivotToHitPoint * minReach;
+            }
+            else
+            {
+                limbTarget.position = hitPoint;
+            }
         }
     }
 

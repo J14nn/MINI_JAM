@@ -32,7 +32,7 @@ public class LimbSelection : MonoBehaviour
                 selectedLimb = hit.transform.GetComponentInParent<LimbMover>();
             }
         }
-        else if (selectedLimb && !selectedLimb.limbInteraction.TryToInteract())
+        else if (selectedLimb && (!selectedLimb.limbInteraction || !selectedLimb.limbInteraction.TryToInteract()))
         {
             selectedLimb = null;
         }
