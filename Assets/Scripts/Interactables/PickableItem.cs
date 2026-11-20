@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour
 {
-    public void Interact()
+    public virtual void Pickup()
+    {
+
+    }
+
+    public virtual void Drop()
     {
 
     }
