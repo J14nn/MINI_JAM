@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: b8bc0a949c77ec8b991bd71feceeb39d
+guid: 7528827b58ecf7e4691b39d2816fed42
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: john_victim_body
-    second: {fileID: 2100000, guid: fa8b51839f93279a1ab117f4cf9360a1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: john_victim_cloth
-    second: {fileID: 2100000, guid: 42faf1cd64f67fa29b2f940c984d5894, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: john_victim_eyes
-    second: {fileID: 2100000, guid: 21946cfdd3ba0dd74b4ad13f7ad75c15, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: john_victim_hair
-    second: {fileID: 2100000, guid: 48d4fc67c8ca0ed4bac1a4dd1eec8987, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
