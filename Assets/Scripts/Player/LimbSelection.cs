@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LimbSelection : MonoBehaviour
@@ -19,6 +20,13 @@ public class LimbSelection : MonoBehaviour
             Interact();
         }
         MoveSelectedLimb();
+    }
+
+    public async void SelectPartNextFrame(BodyPart part)
+    {
+        await Awaitable.NextFrameAsync();
+        await Awaitable.NextFrameAsync();
+        selectedPart = part;
     }
 
     private void MoveSelectedLimb()

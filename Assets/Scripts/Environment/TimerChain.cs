@@ -16,15 +16,18 @@ public class TimerChain : MonoBehaviour
         initialHeadPos = playerHeadTransform.position;
     }
 
-    public void AdvanceTime()
+    private void Update()
     {
-        timeElapsed += Time.deltaTime;
-        playerHeadTransform.position = initialHeadPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;
-
         if (timeElapsed > maxTime)
         {
             Debug.Log("Game Over");
             Time.timeScale = 0f;
         }
+    }
+
+    public void AdvanceTime()
+    {
+        timeElapsed += Time.deltaTime;
+        playerHeadTransform.position = initialHeadPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;
     }
 }

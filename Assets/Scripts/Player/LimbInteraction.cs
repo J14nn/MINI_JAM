@@ -99,6 +99,7 @@ public class LimbInteraction : MonoBehaviour
                 heldItem = pickable;
                 heldItem.Pickup(this);
                 otherLimb.heldItem = null;
+                Player.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
                 return true;
             }
             else if (pickable)
