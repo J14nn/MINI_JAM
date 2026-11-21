@@ -29,7 +29,7 @@ public class MainChain : MonoBehaviour
 
             foreach (Chain chain in longestChains)
             {
-                if (chain != limbSelection.selectedPart.chain)
+                if (!limbSelection.selectedPart || chain != limbSelection.selectedPart.chain)
                 {
                     chain.TryToShortenChain(shortenAmount);
                 }

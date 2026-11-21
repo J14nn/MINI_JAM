@@ -18,7 +18,7 @@ public class Chain : MonoBehaviour
 
     private SplineContainer splineContainer;
 
-    private void Start()
+    private void Awake()
     {
         splineContainer = GetComponent<SplineContainer>();
     }

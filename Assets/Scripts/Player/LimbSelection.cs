@@ -7,6 +7,11 @@ public class LimbSelection : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private MainChain mainChain;
 
+    private void Start()
+    {
+        mainChain.UpdateChainsAndLimbs();
+    }
+
     private void Update()
     {
         if (Input.player.Interact.WasPressedThisFrame())
