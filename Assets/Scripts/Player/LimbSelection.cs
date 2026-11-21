@@ -1,10 +1,17 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LimbSelection : MonoBehaviour
 {
-    [SerializeField] private LayerMask playerLayer;
+    [HideInInspector] public BodyPart selectedPart;
 
-    private LimbMover selectedLimb;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private MainChain mainChain;
+
+    private void Start()
+    {
+        mainChain.UpdateChainsAndLimbs();
+    }
 
     private void Update()
     {
@@ -15,26 +22,37 @@ public class LimbSelection : MonoBehaviour
         MoveSelectedLimb();
     }
 
+    public async void SelectPartNextFrame(BodyPart part)
+    {
+        await Awaitable.NextFrameAsync();
+        await Awaitable.NextFrameAsync();
+        selectedPart = part;
+    }
+
     private void MoveSelectedLimb()
     {
-        if (!selectedLimb) return;
+        if (!selectedPart) return;
 
-        selectedLimb.MoveLimb();
+        selectedPart.Move();
+        mainChain.UpdateChainsAndLimbs();
     }
 
     private void Interact()
     {
-        if (!selectedLimb)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        BodyPart lastSelectedPart = selectedPart;
+        if (selectedPart && (!selectedPart.limbInteraction || !selectedPart.limbInteraction.TryToInteract()))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
-            {
-                selectedLimb = hit.transform.GetComponentInParent<LimbMover>();
-            }
+            selectedPart = null;
         }
-        else if (selectedLimb && (!selectedLimb.limbInteraction || !selectedLimb.limbInteraction.TryToInteract()))
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
         {
-            selectedLimb = null;
+            BodyPart newPart = hit.transform.GetComponentInParent<BodyPart>();
+            if (newPart && newPart != lastSelectedPart)
+            {
+                selectedPart = newPart;
+            }
         }
     }
 }

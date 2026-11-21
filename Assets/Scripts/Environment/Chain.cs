@@ -5,31 +5,51 @@ using UnityEngine.Splines;
 public class Chain : MonoBehaviour
 {
     public Transform chainStartTranform;
-
-    [field: SerializeField] public float maxLength { get; private set; } = 6f;
+    public float usedLength
+    {
+        get
+        {
+            return Vector3.Distance(chainStartTranform.position, connectedTransform.position);
+        }
+    }
 
     [SerializeField] private Transform connectedTransform;
+    [SerializeField] private BodyPart connectedPart;
 
     private SplineContainer splineContainer;
 
-    private void Start()
+    private void Awake()
     {
         splineContainer = GetComponent<SplineContainer>();
     }
 
-    private void Update()
+    public void TryToShortenChain(float amount)
     {
-        UpdateChain();
+        LimbMover limb = connectedPart as LimbMover;
+        Vector3 dirToChain = (chainStartTranform.position - connectedTransform.position).normalized;
+        limb.limbTarget.transform.position += dirToChain * amount;
     }
 
-    private void UpdateChain()
+
+
+    public void UpdateChain(float looseness)
     {
         Spline spline = splineContainer.Splines[0];
 
-        BezierKnot firstKnot = spline[0];
-        Vector3 localPos = splineContainer.transform.InverseTransformPoint(connectedTransform.position);
-        firstKnot.Position = localPos;
+        Vector3 start = connectedTransform.position;
+        Vector3 end = chainStartTranform.position;
 
-        spline.SetKnot(0, firstKnot);
+        Vector3 middle = (start + end) / 2f;
+        middle += Vector3.down * looseness;
+
+        Vector3[] positions = { start, middle, end };
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            BezierKnot knot = spline[i];
+            knot.Position = splineContainer.transform.InverseTransformPoint(positions[i]);
+            spline.SetKnot(i, knot);
+        }
     }
+
 }
