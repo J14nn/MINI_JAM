@@ -26,15 +26,11 @@ public class MainChain : MonoBehaviour
             List<Chain> longestChains = chains.OrderByDescending(chain => chain.usedLength).ToList();
             float shortenAmount = usedLength - totalMaxLength;
 
-            int otherLimbCount = chains.Count - 1;
-
-            float amountPerLimb = shortenAmount / otherLimbCount;
-
             foreach (Chain chain in longestChains)
             {
                 if (chain != limbSelection.selectedPart.chain)
                 {
-                    chain.TryToShortenChain(amountPerLimb);
+                    chain.TryToShortenChain(shortenAmount);
                 }
             }
 

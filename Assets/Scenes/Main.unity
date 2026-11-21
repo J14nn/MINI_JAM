@@ -1823,9 +1823,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   minReach: 4.5
-  acceleration: 120
-  maxSpeed: 4
-  friction: 30
+  acceleration: 200
+  maxSpeed: 7
+  friction: 15
 --- !u!1 &575520575
 GameObject:
   m_ObjectHideFlags: 0
@@ -3381,9 +3381,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   minReach: 2
-  acceleration: 120
-  maxSpeed: 4
-  friction: 30
+  acceleration: 200
+  maxSpeed: 7
+  friction: 15
 --- !u!1 &985049410
 GameObject:
   m_ObjectHideFlags: 0
@@ -4806,9 +4806,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   minReach: 4.5
-  acceleration: 120
-  maxSpeed: 4
-  friction: 30
+  acceleration: 200
+  maxSpeed: 7
+  friction: 15
 --- !u!1 &1499923265
 GameObject:
   m_ObjectHideFlags: 0
@@ -6046,9 +6046,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   minReach: 2
-  acceleration: 120
-  maxSpeed: 4
-  friction: 30
+  acceleration: 200
+  maxSpeed: 7
+  friction: 15
 --- !u!1 &2025475479
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class LimbMover : BodyPart
     [SerializeField] private Transform limbPivot;
     [SerializeField] private LayerMask defaultLayer;
     [SerializeField] private float minReach = 1f;
+    [SerializeField] private float maxReach = 5f;
 
     [SerializeField] private float acceleration = 120f;
     [SerializeField] private float maxSpeed = 5f;
@@ -68,6 +69,11 @@ public class LimbMover : BodyPart
         {
             Vector3 dirLimbPivotToHitPoint = (hitPoint - limbPivot.position).normalized;
             limbTarget.position = limbPivot.position + dirLimbPivotToHitPoint * minReach;
+        }
+        else if (distLimbPivotToHitPoint > maxReach)
+        {
+            Vector3 dirLimbPivotToHitPoint = (hitPoint - limbPivot.position).normalized;
+            limbTarget.position = limbPivot.position + dirLimbPivotToHitPoint * maxReach;
         }
         else
         {
