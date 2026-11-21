@@ -5505,7 +5505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4f1baea7c260b4b8078a8f2639c9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainChain
-  totalMaxLength: 60
+  totalMaxLength: 32
   timerChain: {fileID: 610743832}
   chains:
   - {fileID: 624354879}
