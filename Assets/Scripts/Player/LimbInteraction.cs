@@ -21,7 +21,7 @@ public class LimbInteraction : MonoBehaviour
 
     private void UpdateInteraction()
     {
-        Collider[] hits = Physics.OverlapSphere(itemPosition.position, itemGrabReach, interactableLayer);
+        Collider[] hits = Physics.OverlapSphere(itemPosition.position, interactionRange, interactableLayer);
 
         if (hits != null && hits.Length > 0)
         {

@@ -23,6 +23,6 @@ public class HeadMover : BodyPart
         float yaw = Mathf.Clamp(dir.x * maxYaw, -maxYaw, maxYaw);
         float pitch = Mathf.Clamp(-dir.y * maxPitch, -maxPitch, maxPitch);
 
-        transform.localRotation = Quaternion.Euler(pitch, yaw, 0);
+        transform.localRotation = Quaternion.Euler(-yaw, 0, pitch);
     }
 }

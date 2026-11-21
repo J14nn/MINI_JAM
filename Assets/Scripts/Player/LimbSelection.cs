@@ -10,7 +10,6 @@ public class LimbSelection : MonoBehaviour
 
     private void Start()
     {
-        mainChain.UpdateChainsAndLimbs();
     }
 
     private void Update()
@@ -20,6 +19,7 @@ public class LimbSelection : MonoBehaviour
             Interact();
         }
         MoveSelectedLimb();
+        mainChain.UpdateChainsAndLimbs();
     }
 
     public async void SelectPartNextFrame(BodyPart part)
@@ -34,7 +34,6 @@ public class LimbSelection : MonoBehaviour
         if (!selectedPart) return;
 
         selectedPart.Move();
-        mainChain.UpdateChainsAndLimbs();
     }
 
     private void Interact()
