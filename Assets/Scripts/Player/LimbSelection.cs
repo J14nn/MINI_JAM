@@ -26,17 +26,20 @@ public class LimbSelection : MonoBehaviour
 
     private void Interact()
     {
-        if (!selectedPart)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
-            {
-                selectedPart = hit.transform.GetComponentInParent<BodyPart>();
-            }
-        }
-        else if (selectedPart && (!selectedPart.limbInteraction || !selectedPart.limbInteraction.TryToInteract()))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        BodyPart lastSelectedPart = selectedPart;
+        if (selectedPart && (!selectedPart.limbInteraction || !selectedPart.limbInteraction.TryToInteract()))
         {
             selectedPart = null;
+        }
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
+        {
+            BodyPart newPart = hit.transform.GetComponentInParent<BodyPart>();
+            if (newPart && newPart != lastSelectedPart)
+            {
+                selectedPart = newPart;
+            }
         }
     }
 }

@@ -1,19 +1,33 @@
 using UnityEngine;
 
-public class KeyInteractable : MonoBehaviour
+public class KeyInteractable : PickableItem
 {
-    [SerializeField] private int hitsRequired = 3;
     [SerializeField] private SpringJoint joint;
+    [SerializeField] private Rigidbody rb;
 
-    private int hits;
+    private LimbInteraction limbInteraction;
 
-    private void OnCollisionEnter(Collision other)
+    private void Update()
     {
-        hits++;
+        MoveKeyToHand();
+    }
 
-        if (joint && hits > hitsRequired - 1)
-        {
-            Destroy(joint);
-        }
+    private void MoveKeyToHand()
+    {
+        if (!limbInteraction) return;
+
+        transform.position = limbInteraction.itemPosition.position;
+    }
+
+    public override void Pickup(LimbInteraction limb)
+    {
+        limbInteraction = limb;
+        Destroy(joint);
+        Destroy(rb);
+    }
+
+    public override void Drop()
+    {
+        limbInteraction = null;
     }
 }

@@ -16,7 +16,7 @@ public class TimerChain : MonoBehaviour
         initialHeadPos = playerHeadTransform.position;
     }
 
-    private void Update()
+    public void AdvanceTime()
     {
         timeElapsed += Time.deltaTime;
         playerHeadTransform.position = initialHeadPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;

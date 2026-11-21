@@ -4,11 +4,11 @@ using UnityEngine;
 public class LimbMover : BodyPart
 {
     public Transform limbTarget;
+    [SerializeField] private TimerChain timerChain;
     [SerializeField] private Transform limbPivot;
     [SerializeField] private LayerMask defaultLayer;
     [SerializeField] private float minReach = 1f;
     [SerializeField] private float maxReach = 5f;
-
     [SerializeField] private float acceleration = 120f;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float friction = 30f;
@@ -41,6 +41,7 @@ public class LimbMover : BodyPart
             if (direction.magnitude > 0.05f)
             {
                 velocity += direction.normalized * acceleration * Time.deltaTime;
+                timerChain.AdvanceTime();
             }
 
             velocity -= velocity * friction * Time.deltaTime;
