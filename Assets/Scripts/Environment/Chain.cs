@@ -23,11 +23,6 @@ public class Chain : MonoBehaviour
         splineContainer = GetComponent<SplineContainer>();
     }
 
-    private void Update()
-    {
-        UpdateChain();
-    }
-
     public void TryToShortenChain(float amount)
     {
         LimbMover limb = connectedPart as LimbMover;
@@ -35,14 +30,26 @@ public class Chain : MonoBehaviour
         limb.limbTarget.transform.position += dirToChain * amount;
     }
 
-    private void UpdateChain()
+
+
+    public void UpdateChain(float looseness)
     {
         Spline spline = splineContainer.Splines[0];
 
-        BezierKnot firstKnot = spline[0];
-        Vector3 localPos = splineContainer.transform.InverseTransformPoint(connectedTransform.position);
-        firstKnot.Position = localPos;
+        Vector3 start = connectedTransform.position;
+        Vector3 end = chainStartTranform.position;
 
-        spline.SetKnot(0, firstKnot);
+        Vector3 middle = (start + end) / 2f;
+        middle += Vector3.down * looseness;
+
+        Vector3[] positions = { start, middle, end };
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            BezierKnot knot = spline[i];
+            knot.Position = splineContainer.transform.InverseTransformPoint(positions[i]);
+            spline.SetKnot(i, knot);
+        }
     }
+
 }
