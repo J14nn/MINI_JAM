@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour
 {
-    public virtual void Pickup(LimbInteraction limb)
+    public LimbInteraction limbInteraction;
+
+    public virtual void Pickup()
     {
 
     }

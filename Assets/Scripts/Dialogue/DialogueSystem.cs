@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -48,7 +49,7 @@ public class DialogueSystem : MonoBehaviour
 
     private async void StartQuestionCountdown(int questionIndex)
     {
-        await Awaitable.WaitForSecondsAsync(currentQuestion.displayDuration);
+        await Awaitable.WaitForSecondsAsync(currentQuestion.questionDisplayDuration);
 
         if (questionIndex == currentQuestionIndex && canvasGroup.alpha > 0f)
         {
@@ -79,17 +80,24 @@ public class DialogueSystem : MonoBehaviour
 
     private async void Answer(bool answer)
     {
-        canvasGroup.FadeOut(textFadeTime);
         isWaitingForAnswer = false;
+        string response;
 
         if (answer == currentQuestion.correctAnswer)
         {
             timerChain.timeElapsed -= currentQuestion.timeAddedWhenCorrect;
+            response = currentQuestion.answerWhenCorrect;
         }
         else
         {
             timerChain.timeElapsed += currentQuestion.timeRemovedWhenWrong;
+            response = currentQuestion.answerWhenWrong;
         }
+
+        subtitleText.text = response;
+        await Awaitable.WaitForSecondsAsync(currentQuestion.answerDisplayDuration);
+
+        canvasGroup.FadeOut(textFadeTime);
 
         await Awaitable.WaitForSecondsAsync(currentQuestion.waitDurationAfterQuestion);
 

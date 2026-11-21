@@ -5,8 +5,6 @@ public class KeyInteractable : PickableItem
     [SerializeField] private SpringJoint joint;
     [SerializeField] private Rigidbody rb;
 
-    private LimbInteraction limbInteraction;
-
     private void Update()
     {
         MoveKeyToHand();
@@ -19,9 +17,8 @@ public class KeyInteractable : PickableItem
         transform.position = limbInteraction.itemPosition.position;
     }
 
-    public override void Pickup(LimbInteraction limb)
+    public override void Pickup()
     {
-        limbInteraction = limb;
         Destroy(joint);
         Destroy(rb);
     }

@@ -5,6 +5,11 @@ public class HeadMover : BodyPart
     [SerializeField] private float maxYaw = 60f;
     [SerializeField] private float maxPitch = 40f;
 
+    private void Start()
+    {
+        limbInteraction = GetComponent<LimbInteraction>();
+    }
+
     public override void Move()
     {
         float depth = Mathf.Abs(Camera.main.transform.position.z - transform.position.z);

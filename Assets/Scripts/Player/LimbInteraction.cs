@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using Unity.Burst;
 using UnityEngine;
 
 public class LimbInteraction : MonoBehaviour
@@ -6,10 +9,8 @@ public class LimbInteraction : MonoBehaviour
     public Transform itemPosition;
 
     [SerializeField] private float itemGrabReach = 1f;
-    [SerializeField] private float itemHandSwitchRange = 2f;
     [SerializeField] private float interactionRange = 1f;
     [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] private LimbInteraction otherLimb;
 
 
     private void Update()
@@ -92,20 +93,23 @@ public class LimbInteraction : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, interactableLayer))
         {
             PickableItem pickable = hit.transform.GetComponentInParent<PickableItem>();
-            bool isOtherHandNear = Vector3.Distance(itemPosition.position, otherLimb.itemPosition.position) < itemHandSwitchRange;
 
-            if (pickable && isOtherHandNear && otherLimb.heldItem)
+            if (Vector3.Distance(hit.point, itemPosition.position) > itemGrabReach)
             {
-                heldItem = pickable;
-                heldItem.Pickup(this);
-                otherLimb.heldItem = null;
-                Player.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
-                return true;
+                return false;
             }
-            else if (pickable)
+
+            if (pickable)
             {
+                if (pickable.limbInteraction)
+                {
+                    pickable.limbInteraction.heldItem = null;
+                    Player.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
+                }
+
                 heldItem = pickable;
-                heldItem.Pickup(this);
+                heldItem.Pickup();
+                pickable.limbInteraction = this;
                 return true;
             }
         }
