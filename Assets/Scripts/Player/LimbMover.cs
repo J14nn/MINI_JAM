@@ -8,9 +8,9 @@ public class LimbMover : BodyPart
     [SerializeField] private LayerMask defaultLayer;
     [SerializeField] private float minReach = 1f;
 
-    [SerializeField] private float acceleration = 40f;
+    [SerializeField] private float acceleration = 120f;
     [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private float friction = 2f;
+    [SerializeField] private float friction = 30f;
 
     private float limbStartPosZ;
     private Vector3 velocity;

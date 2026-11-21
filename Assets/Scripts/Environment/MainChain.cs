@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,35 +19,44 @@ public class MainChain : MonoBehaviour
     {
         UpdateUsedLength();
 
-        if (usedLength <= totalMaxLength) return;
-
-        timerChain.timeElapsed += Time.deltaTime * (timeChainSpeedMultiplier - 1f);
-
-        List<Chain> longestChains = chains.OrderByDescending(chain => chain.usedLength).ToList();
-        float shortenAmount = usedLength - totalMaxLength;
-
-        foreach (Chain chain in longestChains)
+        if (usedLength > totalMaxLength)
         {
-            if (chain != limbSelection.selectedPart.chain)
+            timerChain.timeElapsed += Time.deltaTime * (timeChainSpeedMultiplier - 1f);
+
+            List<Chain> longestChains = chains.OrderByDescending(chain => chain.usedLength).ToList();
+            float shortenAmount = usedLength - totalMaxLength;
+
+            int otherLimbCount = chains.Count - 1;
+
+            float amountPerLimb = shortenAmount / otherLimbCount;
+
+            foreach (Chain chain in longestChains)
             {
-                chain.TryToShortenChain(shortenAmount);
+                if (chain != limbSelection.selectedPart.chain)
+                {
+                    chain.TryToShortenChain(amountPerLimb);
+                }
+            }
+
+            UpdateUsedLength();
+
+            if (usedLength > totalMaxLength &&
+                limbSelection.selectedPart != null &&
+                limbSelection.selectedPart.chain != null)
+            {
+                limbSelection.selectedPart.chain.TryToShortenChain(usedLength - totalMaxLength);
             }
         }
 
         UpdateUsedLength();
-        if (usedLength > totalMaxLength)
-        {
-            limbSelection.selectedPart.chain.TryToShortenChain(usedLength - totalMaxLength);
-        }
 
-        /*float distChainToHitPoint = Vector3.Distance(chain.chainStartTranform.position, hitPoint);
+        float remainingLength = Mathf.Max(0f, totalMaxLength - usedLength);
+        float looseness = remainingLength / chains.Count;
 
-        if (distChainToHitPoint > chain.length)
+        foreach (Chain chain in chains)
         {
-            Vector3 dirChainToHitPoint = (hitPoint - chain.chainStartTranform.position).normalized;
-            limbTarget.position = chain.chainStartTranform.position + dirChainToHitPoint * chain.length;
+            chain.UpdateChain(looseness);
         }
-*/
     }
 
     private void UpdateUsedLength()
