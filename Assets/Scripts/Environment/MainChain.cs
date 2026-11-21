@@ -12,6 +12,7 @@ public class MainChain : MonoBehaviour
     [SerializeField] private LimbSelection limbSelection;
     [Tooltip("Multiplier for speed at which time chain moves when player stretches limbs too far. (1 is normal speed)")]
     [SerializeField] private float timeChainSpeedMultiplier = 2f;
+    [SerializeField] private float chainBendMultiplier = 2f;
 
     public float usedLength;
 
@@ -48,10 +49,11 @@ public class MainChain : MonoBehaviour
 
         float remainingLength = Mathf.Max(0f, totalMaxLength - usedLength);
         float looseness = remainingLength / chains.Count;
+        float visualBend = looseness * chainBendMultiplier;
 
         foreach (Chain chain in chains)
         {
-            chain.UpdateChain(looseness);
+            chain.UpdateChain(visualBend);
         }
     }
 
