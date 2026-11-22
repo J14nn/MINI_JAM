@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 26345665}
   serializedVersion: 2
   m_LocalRotation: {x: 0.012423594, y: 0.0001587445, z: -0.012775638, w: 0.9998412}
-  m_LocalPosition: {x: 7.53, y: -0.26, z: -0.3}
+  m_LocalPosition: {x: 6.84, y: 0.08, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1174,7 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd580e27ec8f3a3439e93083b8ac9559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LowerChain
-  lowerAmount: 5.5
+  lowerAmount: 7
   lowerSpeed: 1
 --- !u!4 &181813403
 Transform:
@@ -4264,7 +4264,7 @@ Transform:
   m_GameObject: {fileID: 756670130}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.39, y: -10.28, z: -0.67}
+  m_LocalPosition: {x: 18.07, y: -10.28, z: -0.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7080,7 +7080,7 @@ Transform:
   m_GameObject: {fileID: 1279712244}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.34, y: -0.61, z: 0}
+  m_LocalPosition: {x: 10.21, y: -0.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7605,7 +7605,7 @@ Transform:
   m_GameObject: {fileID: 1372395835}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.52, y: 6.8, z: -25.3}
+  m_LocalPosition: {x: -3.29, y: 5.07, z: -25.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9716,7 +9716,7 @@ Transform:
   m_GameObject: {fileID: 1722734584}
   serializedVersion: 2
   m_LocalRotation: {x: 0.26613328, y: -0.26613334, z: 0.655113, w: -0.65511304}
-  m_LocalPosition: {x: -0.7, y: 3.22, z: 0.72}
+  m_LocalPosition: {x: -0.23, y: 3.22, z: 0.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10759,7 +10759,7 @@ Transform:
   m_GameObject: {fileID: 1949161702}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.63, y: -9.37, z: -0.67}
+  m_LocalPosition: {x: -10.11, y: -0.34, z: -0.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10998,7 +10998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4f1baea7c260b4b8078a8f2639c9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainChain
-  totalMaxLength: 33
+  totalMaxLength: 14
   timerChain: {fileID: 1436338263}
   chains:
   - {fileID: 2105565263}
@@ -11272,7 +11272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847e8ca4a0c67614886dc9a907a0d018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Addchain
-  lengthIncrease: 4.5
+  lengthIncrease: 2.7
   chainObject: {fileID: 2098196787}
 --- !u!136 &2098196789
 CapsuleCollider:
