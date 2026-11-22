@@ -20,6 +20,7 @@ public class FireIronTrigger : MonoBehaviour
     {
         if (other.transform == cheeseTransform)
         {
+            Globals.soundManager.PlaySound(Globals.soundManager.cheesePickupClip);
             selectedTransform = cheeseTransform;
         }
 
@@ -33,11 +34,14 @@ public class FireIronTrigger : MonoBehaviour
 
         if (other.transform == rat.transform && rat.canBeStabbed)
         {
+            Globals.soundManager.PlaySound(Globals.soundManager.ratStabClip);
             selectedTransform = rat.transform;
         }
 
         if (other.transform == chainContraption && selectedTransform && selectedTransform == rat.transform)
         {
+            Globals.soundManager.PlaySound(Globals.soundManager.ratDieClip);
+            Globals.soundManager.PlayMachineBreakdown();
             Debug.Log("You won");
         }
     }

@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
 public class DialogueSystem : MonoBehaviour
 {
     [SerializeField] private TimerChain timerChain;
+    [SerializeField] private float dialogueStartDelay = 10f;
     [SerializeField] private float textFadeTime = 1f;
     [SerializeField] private TextMeshProUGUI subtitleText;
     [SerializeField] private CanvasGroup canvasGroup;
@@ -23,8 +22,9 @@ public class DialogueSystem : MonoBehaviour
     private Vector2 headMoveAmount;
     private bool isWaitingForAnswer;
 
-    private void Start()
+    private async void Start()
     {
+        await Awaitable.WaitForSecondsAsync(dialogueStartDelay);
         NextQuestion();
     }
 
@@ -43,6 +43,7 @@ public class DialogueSystem : MonoBehaviour
         currentQuestionIndex++;
         isWaitingForAnswer = true;
         subtitleText.text = currentQuestion.question;
+        Globals.soundManager.PlayRatSound(currentQuestion.talkingRat);
         canvasGroup.FadeIn(textFadeTime);
         StartQuestionCountdown(currentQuestionIndex);
     }
@@ -95,6 +96,7 @@ public class DialogueSystem : MonoBehaviour
         }
 
         subtitleText.text = response;
+        Globals.soundManager.PlayRatSound(currentQuestion.talkingRat);
         await Awaitable.WaitForSecondsAsync(currentQuestion.answerDisplayDuration);
 
         canvasGroup.FadeOut(textFadeTime);

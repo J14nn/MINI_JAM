@@ -17,6 +17,7 @@ public class Rat : MonoBehaviour
 
     public async void MoveToPlayer()
     {
+        Globals.soundManager.PlaySound(Globals.soundManager.ratWalkClip);
         await transform.DOMove(finalMovePos, moveSpeed).SetSpeedBased().AsyncWaitForCompletion();
 
         canBeStabbed = true;

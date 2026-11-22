@@ -11,6 +11,7 @@ public class Globals : MonoBehaviour
     public static Texture2D cursorDefault;
     public static Texture2D cursorInteraction;
     public static SoundManager soundManager;
+    public static bool isGameOver;
 
     private void Start()
     {

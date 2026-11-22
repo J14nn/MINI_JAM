@@ -10,6 +10,8 @@ public class CorpseFire : MonoBehaviour
 
     public async void StartFire()
     {
+        Globals.soundManager.PlayFireSound();
+
         float timePerFire = fireSpreadTime / particleSystems.Count;
 
         foreach (GameObject obj in particleSystems)

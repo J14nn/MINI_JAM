@@ -54,6 +54,7 @@ public class MainChain : MonoBehaviour
                 limbSelection.selectedPart != null &&
                 limbSelection.selectedPart.chain != null)
             {
+                Globals.soundManager.PlayChainSnap();
                 limbSelection.selectedPart.chain.TryToShortenChain(usedLength - totalMaxLength);
             }
         }

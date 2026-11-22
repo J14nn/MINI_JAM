@@ -11,6 +11,7 @@ public class LockedCompartment : MonoBehaviour
 
     public void Unlock()
     {
+        Globals.soundManager.PlaySound(Globals.soundManager.compartmentOpenClip);
         objectToEnable.SetActive(true);
     }
 }

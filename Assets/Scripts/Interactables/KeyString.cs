@@ -10,6 +10,7 @@ public class KeyString : MonoBehaviour
     [SerializeField] private float raiseSpeed = 1f;
 
     private float startPosY;
+    private bool wasActiveLastFrame = false;
 
     private void Start()
     {
@@ -18,10 +19,16 @@ public class KeyString : MonoBehaviour
 
     private void Update()
     {
-        if (lever.isActivated)
+        if (lever.isActivated && !wasActiveLastFrame)
+        {
             LowerKey();
-        else
+            wasActiveLastFrame = true;
+        }
+        else if (!lever.isActivated && wasActiveLastFrame)
+        {
             RaiseKey();
+            wasActiveLastFrame = false;
+        }
     }
 
     private void LowerKey()
@@ -33,6 +40,6 @@ public class KeyString : MonoBehaviour
     private void RaiseKey()
     {
         transform.DOKill();
-        transform.DOMoveY(startPosY + lowerAmount, raiseSpeed).SetSpeedBased().SetEase(Ease.Linear);
+        transform.DOMoveY(startPosY, raiseSpeed).SetSpeedBased().SetEase(Ease.Linear);
     }
 }

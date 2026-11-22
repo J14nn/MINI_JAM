@@ -7,9 +7,10 @@ public class Lever : MonoBehaviour
     [SerializeField] private float pushDownSpeed = 20f;
     [SerializeField] private float minAngle = 40f;
     [SerializeField] private float maxAngle = 130f;
-    [SerializeField] private float activationAngle = 45;
+    [SerializeField] private float activationAngle = 80;
 
     public bool isActivated;
+    public bool shouldRelease = true;
     private float _currentAngle;
 
     private void Start()
@@ -21,6 +22,8 @@ public class Lever : MonoBehaviour
 
     private void Update()
     {
+        if (!shouldRelease) return;
+
         CheckForActivation();
         Release();
     }
@@ -39,13 +42,15 @@ public class Lever : MonoBehaviour
 
     private void CheckForActivation()
     {
-        if (leverPivot.localEulerAngles.x < activationAngle)
+        if (_currentAngle < activationAngle && !isActivated)
         {
+            Globals.soundManager.PlaySound(Globals.soundManager.leverActiveClip);
             isActivated = true;
         }
-        else
+        else if (_currentAngle >= activationAngle && isActivated)
         {
             isActivated = false;
+            Globals.soundManager.PlaySound(Globals.soundManager.leverInactiveClip);
         }
     }
 }

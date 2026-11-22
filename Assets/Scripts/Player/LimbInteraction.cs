@@ -65,6 +65,11 @@ public class LimbInteraction : MonoBehaviour
         }
     }
 
+    public bool CanInteractWithNearInteractable()
+    {
+        return heldItem is KeyInteractable && IsInteractableNear(out LockedCompartment _);
+    }
+
     private bool IsInteractableNear<T>(out T interactable) where T : MonoBehaviour
     {
         Collider[] hits = Physics.OverlapSphere(itemPosition.position, interactionRange, interactableLayer);
@@ -88,6 +93,8 @@ public class LimbInteraction : MonoBehaviour
     {
         if (CanPickUpItem(out PickableItem pickable))
         {
+            Globals.soundManager.PlaySound(Globals.soundManager.pickUpItemClip, 0.6f);
+
             if (pickable.limbInteraction)
             {
                 pickable.limbInteraction.heldItem = null;

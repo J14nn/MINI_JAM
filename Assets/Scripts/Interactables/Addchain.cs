@@ -6,10 +6,13 @@ public class Addchain : MonoBehaviour
 
     [SerializeField] private GameObject chainObject;
 
+    private bool wasAdded = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Winch winch))
+        if (other.TryGetComponent(out Winch winch) && !wasAdded)
         {
+            wasAdded = true;
             winch.AddChain(lengthIncrease);
             Destroy(gameObject, 0.1f);
         }
