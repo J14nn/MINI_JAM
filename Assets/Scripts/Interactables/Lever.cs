@@ -30,24 +30,24 @@ public class Lever : MonoBehaviour
 
     private void Release()
     {
-        _currentAngle = Mathf.Clamp(_currentAngle + releaseSpeed * Time.deltaTime, minAngle, maxAngle);
+        _currentAngle = Mathf.Clamp(_currentAngle - releaseSpeed * Time.deltaTime, minAngle, maxAngle);
         leverPivot.localRotation = Quaternion.Euler(_currentAngle, 0f, 0f);
     }
 
     public void PushDown()
     {
-        _currentAngle = Mathf.Clamp(_currentAngle + (-releaseSpeed - pushDownSpeed) * Time.deltaTime, minAngle, maxAngle);
+        _currentAngle = Mathf.Clamp(_currentAngle + (+releaseSpeed + pushDownSpeed) * Time.deltaTime, minAngle, maxAngle);
         leverPivot.localRotation = Quaternion.Euler(_currentAngle, 0f, 0f);
     }
 
     private void CheckForActivation()
     {
-        if (_currentAngle < activationAngle && !isActivated)
+        if (_currentAngle > activationAngle && !isActivated)
         {
             Globals.soundManager.PlaySound(Globals.soundManager.leverActiveClip);
             isActivated = true;
         }
-        else if (_currentAngle >= activationAngle && isActivated)
+        else if (_currentAngle <= activationAngle && isActivated)
         {
             isActivated = false;
             Globals.soundManager.PlaySound(Globals.soundManager.leverInactiveClip);
