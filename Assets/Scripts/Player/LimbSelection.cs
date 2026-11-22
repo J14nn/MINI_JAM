@@ -42,9 +42,14 @@ public class LimbSelection : MonoBehaviour
 
     private void MoveSelectedLimb()
     {
-        if (!selectedPart) return;
-
-        selectedPart.Move();
+        if (selectedPart)
+        {
+            selectedPart.Move();
+        }
+        else
+        {
+            Globals.soundManager.StopChainMoving();
+        }
     }
 
     private void UpdateCursor()

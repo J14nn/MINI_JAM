@@ -43,6 +43,7 @@ public class LimbMover : BodyPart
             {
                 velocity += direction.normalized * acceleration * Time.deltaTime;
                 timerChain.AdvanceTime();
+                Globals.soundManager.PlayChainMoving();
             }
 
             velocity -= velocity * friction * Time.deltaTime;

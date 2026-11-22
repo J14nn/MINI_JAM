@@ -10,9 +10,11 @@ public class Globals : MonoBehaviour
     public static LayerMask playerLayer;
     public static Texture2D cursorDefault;
     public static Texture2D cursorInteraction;
+    public static SoundManager soundManager;
 
     private void Start()
     {
+        soundManager = FindAnyObjectByType<SoundManager>();
         limbSelection = GetComponent<LimbSelection>();
         playerLayer = _playerLayer;
         cursorDefault = _cursorDefault;

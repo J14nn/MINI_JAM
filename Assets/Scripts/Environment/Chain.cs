@@ -23,14 +23,17 @@ public class Chain : MonoBehaviour
         splineContainer = GetComponent<SplineContainer>();
     }
 
+    private void Start()
+    {
+        TryToShortenChain(10f);
+    }
+
     public void TryToShortenChain(float amount)
     {
         LimbMover limb = connectedPart as LimbMover;
         Vector3 dirToChain = (chainStartTranform.position - connectedTransform.position).normalized;
         limb.limbTarget.transform.position += dirToChain * amount;
     }
-
-
 
     public void UpdateChain(float looseness)
     {
