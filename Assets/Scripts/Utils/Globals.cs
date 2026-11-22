@@ -14,6 +14,7 @@ public class Globals : MonoBehaviour
     public static bool isGameOver;
     public static bool hasWon;
     public static PlayerRagdoll playerRagdoll;
+    public static PlayerDeath playerDeath;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class Globals : MonoBehaviour
 
     private void Start()
     {
+        playerDeath = GetComponent<PlayerDeath>();
         playerRagdoll = GetComponent<PlayerRagdoll>();
         soundManager = FindAnyObjectByType<SoundManager>();
         limbSelection = GetComponent<LimbSelection>();

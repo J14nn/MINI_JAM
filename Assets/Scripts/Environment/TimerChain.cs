@@ -35,13 +35,15 @@ public class TimerChain : MonoBehaviour
         if (timeElapsed > maxTime && !Globals.isGameOver)
         {
             Globals.isGameOver = true;
+            Globals.playerDeath.GameOver();
             Globals.soundManager.PlayHeadRip();
-            Time.timeScale = 0f;
         }
     }
 
     public void AdvanceTime()
     {
+        if (Globals.isGameOver) return;
+
         timeElapsed += Time.deltaTime;
         playerHeadTransform.position = initialHeadPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;
         transform.position = initialTransformPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;

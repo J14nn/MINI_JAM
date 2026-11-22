@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LimbSelection : MonoBehaviour
 {
-    [HideInInspector] public BodyPart selectedPart;
+    public BodyPart selectedPart;
 
     [SerializeField] private LayerMask playerLayer;
 
