@@ -264,6 +264,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8022021914583566424, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
+    - target: {fileID: -5926998686557343088, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
+    - target: {fileID: -4983735790305032733, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
     - target: {fileID: -4748361991329772099, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
       propertyPath: m_Controller
       value: 
@@ -308,6 +320,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2198767925360840066, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
+    - target: {fileID: 2417858243781216268, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
+    - target: {fileID: 2610119581411306227, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
+    - target: {fileID: 2865983763712535813, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
+    - target: {fileID: 6293630725620192017, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e6c969f6af44f0a4adcd925dfd308d1, type: 2}
     - target: {fileID: 8771091787928289351, guid: f78b3f48c14e8d8db9a6ab0157efd1d9, type: 3}
       propertyPath: m_Name
       value: rat
@@ -519,7 +551,7 @@ Transform:
   m_GameObject: {fileID: 1802975893}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.989, y: 2.207, z: 0.1}
+  m_LocalPosition: {x: 1.893, y: 0.956, z: -0.565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
