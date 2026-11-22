@@ -6,20 +6,19 @@ public class LimbSelection : MonoBehaviour
     [HideInInspector] public BodyPart selectedPart;
 
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private MainChain mainChain;
-
-    private void Start()
-    {
-    }
 
     private void Update()
     {
-        if (Input.player.Interact.WasPressedThisFrame())
+        if (Input.player.MoveLimb.WasPressedThisFrame())
         {
-            Interact();
+            SelectLimb();
         }
+        else if (Input.player.MoveLimb.WasReleasedThisFrame())
+        {
+            selectedPart = null;
+        }
+
         MoveSelectedLimb();
-        mainChain.UpdateChainsAndLimbs();
     }
 
     public async void SelectPartNextFrame(BodyPart part)
@@ -29,29 +28,20 @@ public class LimbSelection : MonoBehaviour
         selectedPart = part;
     }
 
+    private void SelectLimb()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
+        {
+            selectedPart = hit.transform.GetComponentInParent<BodyPart>();
+        }
+    }
+
     private void MoveSelectedLimb()
     {
         if (!selectedPart) return;
 
         selectedPart.Move();
-    }
-
-    private void Interact()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        BodyPart lastSelectedPart = selectedPart;
-        if (selectedPart && (!selectedPart.limbInteraction || !selectedPart.limbInteraction.TryToInteract()))
-        {
-            selectedPart = null;
-        }
-        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
-        {
-            BodyPart newPart = hit.transform.GetComponentInParent<BodyPart>();
-            if (newPart && newPart != lastSelectedPart)
-            {
-                selectedPart = newPart;
-            }
-        }
     }
 }

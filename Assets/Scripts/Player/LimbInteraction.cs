@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using Unity.Burst;
 using UnityEngine;
 
 public class LimbInteraction : MonoBehaviour
@@ -13,15 +10,23 @@ public class LimbInteraction : MonoBehaviour
     [SerializeField] private float interactionRange = 1f;
     [SerializeField] private LayerMask interactableLayer;
 
+    private BodyPart bodyPart;
+
     private void Start()
     {
         limbMover = GetComponent<LimbMover>();
+        bodyPart = GetComponent<BodyPart>();
     }
 
     private void Update()
     {
         MoveItem();
         UpdateInteraction();
+
+        if (Input.player.Interact.WasPressedThisFrame() && Player.limbSelection.selectedPart == bodyPart)
+        {
+            TryToInteract();
+        }
     }
 
     private void UpdateInteraction()
@@ -54,14 +59,7 @@ public class LimbInteraction : MonoBehaviour
 
     private bool TryToInteractWithHandItem()
     {
-        if (heldItem is Addchain && IsInteractableNear(out Winch winch))
-        {
-            winch.AddChain(((Addchain)heldItem).lengthIncrease);
-            Destroy(heldItem.gameObject);
-            heldItem = null;
-            return true;
-        }
-        else if (heldItem is KeyInteractable && IsInteractableNear(out LockedCompartment compartment))
+        if (heldItem is KeyInteractable && IsInteractableNear(out LockedCompartment compartment))
         {
             compartment.Unlock();
             Destroy(heldItem.transform.parent.gameObject);

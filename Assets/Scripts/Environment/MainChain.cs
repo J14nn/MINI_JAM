@@ -16,6 +16,11 @@ public class MainChain : MonoBehaviour
 
     public float usedLength;
 
+    private void Update()
+    {
+        UpdateChainsAndLimbs();
+    }
+
     public void UpdateChainsAndLimbs()
     {
         UpdateUsedLength();

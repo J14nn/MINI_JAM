@@ -60,7 +60,7 @@ public class LimbMover : BodyPart
     private void SetTargetRotation()
     {
         float angle = GetAngleBetweenTwoPositions(limbPivot.position, limbTarget.position);
-        limbTarget.eulerAngles = new Vector3(angle + 90f, -90f, 0);
+        limbTarget.eulerAngles = new Vector3(angle, 0, 0);
     }
 
     private void SetTargetPosition(Vector3 hitPoint)
