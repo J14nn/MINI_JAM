@@ -9,6 +9,8 @@ public class LimbSelection : MonoBehaviour
 
     private void Update()
     {
+        UpdateCursor();
+
         if (Input.player.MoveLimb.WasPressedThisFrame())
         {
             SelectLimb();
@@ -43,5 +45,20 @@ public class LimbSelection : MonoBehaviour
         if (!selectedPart) return;
 
         selectedPart.Move();
+    }
+
+    private void UpdateCursor()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if ((!selectedPart && Physics.Raycast(ray, out RaycastHit _, float.MaxValue, playerLayer))
+            || (selectedPart && selectedPart.limbInteraction && selectedPart.limbInteraction.CanPickUpItem(out PickableItem _)))
+        {
+            Cursor.SetCursor(Globals.cursorInteraction, new Vector2(16, 16), CursorMode.ForceSoftware);
+        }
+        else
+        {
+            Cursor.SetCursor(Globals.cursorDefault, new Vector2(16, 16), CursorMode.ForceSoftware);
+        }
     }
 }

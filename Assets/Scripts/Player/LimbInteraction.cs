@@ -23,7 +23,7 @@ public class LimbInteraction : MonoBehaviour
         MoveItem();
         UpdateInteraction();
 
-        if (Input.player.Interact.WasPressedThisFrame() && Player.limbSelection.selectedPart == bodyPart)
+        if (Input.player.Interact.WasPressedThisFrame() && Globals.limbSelection.selectedPart == bodyPart)
         {
             TryToInteract();
         }
@@ -43,31 +43,26 @@ public class LimbInteraction : MonoBehaviour
         }
     }
 
-    public bool TryToInteract()
+    public void TryToInteract()
     {
-        if (heldItem && TryToInteractWithHandItem())
+        if (heldItem)
         {
-            return true;
+            TryToInteractWithHandItem();
         }
-        else if (!heldItem && TryToPickupItem())
+        else
         {
-            return true;
+            TryToPickupItem();
         }
-
-        return false;
     }
 
-    private bool TryToInteractWithHandItem()
+    private void TryToInteractWithHandItem()
     {
         if (heldItem is KeyInteractable && IsInteractableNear(out LockedCompartment compartment))
         {
             compartment.Unlock();
             Destroy(heldItem.transform.parent.gameObject);
             heldItem = null;
-            return true;
         }
-
-        return false;
     }
 
     private bool IsInteractableNear<T>(out T interactable) where T : MonoBehaviour
@@ -89,40 +84,20 @@ public class LimbInteraction : MonoBehaviour
         return false;
     }
 
-    private bool TryToPickupItem()
+    private void TryToPickupItem()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, interactableLayer))
+        if (CanPickUpItem(out PickableItem pickable))
         {
-            PickableItem pickable = hit.transform.GetComponentInParent<PickableItem>();
-
-            if (Vector3.Distance(hit.point, itemPosition.position) > itemGrabReach)
+            if (pickable.limbInteraction)
             {
-                return false;
+                pickable.limbInteraction.heldItem = null;
+                Globals.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
             }
 
-            if (pickable)
-            {
-                if (!pickable.canBePickedByMouth && Player.limbSelection.selectedPart is HeadMover)
-                {
-                    return false;
-                }
-
-                if (pickable.limbInteraction)
-                {
-                    pickable.limbInteraction.heldItem = null;
-                    Player.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
-                }
-
-                heldItem = pickable;
-                heldItem.Pickup();
-                pickable.limbInteraction = this;
-                return true;
-            }
+            heldItem = pickable;
+            heldItem.Pickup();
+            pickable.limbInteraction = this;
         }
-
-        return false;
     }
 
     private void MoveItem()
@@ -130,5 +105,33 @@ public class LimbInteraction : MonoBehaviour
         if (!heldItem) return;
 
         heldItem.transform.position = itemPosition.position;
+    }
+
+    public bool CanPickUpItem(out PickableItem pickable)
+    {
+        pickable = null;
+        if (heldItem) return false;
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit[] hits = Physics.RaycastAll(ray, float.MaxValue, interactableLayer);
+
+        foreach (RaycastHit hit in hits)
+        {
+            pickable = hit.transform.GetComponentInParent<PickableItem>();
+
+            if (Vector3.Distance(hit.point, itemPosition.position) > itemGrabReach)
+                return false;
+
+            if (pickable)
+            {
+                if (!pickable.canBePickedByMouth && Globals.limbSelection.selectedPart is HeadMover)
+                    return false;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
