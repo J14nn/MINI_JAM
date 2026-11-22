@@ -6,7 +6,6 @@ public class Globals : MonoBehaviour
     [SerializeField] private Texture2D _cursorDefault;
     [SerializeField] private Texture2D _cursorInteraction;
 
-    public static SoundManager soundManager;
     public static LimbSelection limbSelection;
     public static LayerMask playerLayer;
     public static Texture2D cursorDefault;
@@ -14,7 +13,6 @@ public class Globals : MonoBehaviour
 
     private void Start()
     {
-        soundManager = FindAnyObjectByType<SoundManager>();
         limbSelection = GetComponent<LimbSelection>();
         playerLayer = _playerLayer;
         cursorDefault = _cursorDefault;

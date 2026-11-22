@@ -54,9 +54,6 @@ public class LimbSelection : MonoBehaviour
 
     private void UpdateCursor()
     {
-        Vector3 pos = Input.mousePosition;
-        if (pos.x < 0f || pos.x > Screen.width || pos.y < 0f || pos.y > Screen.height) return;
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if ((!selectedPart && Physics.Raycast(ray, out RaycastHit _, float.MaxValue, playerLayer))
