@@ -2602,6 +2602,7 @@ MonoBehaviour:
   canBePickedByMouth: 1
   joint: {fileID: 575846916}
   rb: {fileID: 575846917}
+  lever: {fileID: 1122219356}
 --- !u!145 &575846916
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -5659,6 +5660,7 @@ MonoBehaviour:
   maxAngle: 130
   activationAngle: 80
   isActivated: 0
+  shouldRelease: 1
 --- !u!1 &1133427672
 GameObject:
   m_ObjectHideFlags: 0

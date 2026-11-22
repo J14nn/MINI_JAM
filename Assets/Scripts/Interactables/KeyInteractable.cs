@@ -4,6 +4,7 @@ public class KeyInteractable : PickableItem
 {
     [SerializeField] private SpringJoint joint;
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Lever lever;
 
     private void Update()
     {
@@ -19,6 +20,7 @@ public class KeyInteractable : PickableItem
 
     public override void Pickup()
     {
+        lever.shouldRelease = false;
         Destroy(joint);
         Destroy(rb);
     }

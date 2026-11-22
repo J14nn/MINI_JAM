@@ -11,6 +11,7 @@ public class Lever : MonoBehaviour
 
     public bool isActivated;
     private float _currentAngle;
+    public bool shouldRelease = true;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class Lever : MonoBehaviour
 
     private void Update()
     {
-        if (isActivated) return;
+        if (!shouldRelease) return;
 
         CheckForActivation();
         Release();
