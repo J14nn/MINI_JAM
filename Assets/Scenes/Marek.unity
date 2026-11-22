@@ -8165,6 +8165,10 @@ MonoBehaviour:
   ratStabClip: {fileID: 8300000, guid: 59e1795dc4d07e34182ceed0d2bb61b0, type: 3}
   ratDieClip: {fileID: 8300000, guid: 54ea540840b4e654dbc5606630f35c91, type: 3}
   cheesePickupClip: {fileID: 8300000, guid: 6e0cdaa1a5e3f0e4082ff67e8f622037, type: 3}
+  compartmentOpenClip: {fileID: 8300000, guid: 7481a1561aa595545b2d13593f00551c, type: 3}
+  leverActiveClip: {fileID: 8300000, guid: ef393a8473e0cf047b375a000e82f206, type: 3}
+  leverInactiveClip: {fileID: 8300000, guid: e25715747d319fd4193aea58a39c72c4, type: 3}
+  chainHitClip: {fileID: 8300000, guid: 702e5b249991344c080b82c3a6d16313, type: 3}
   chainMovingSource: {fileID: 637869296}
   chainMovingClips:
   - {fileID: 8300000, guid: 6d84f4027046e45c284979dc9b403a29, type: 3}
@@ -9691,9 +9695,32 @@ MonoBehaviour:
   movementToAnswerYes: 150
   movementToAnswerNo: 80
   questions:
+  - talkingRat: 1
+    question: HAHAHAHA
+    correctAnswer: 0
+    isQuestion: 0
+    answerWhenCorrect: 
+    answerWhenWrong: 
+    timeAddedWhenCorrect: 0
+    timeRemovedWhenWrong: 0
+    questionDisplayDuration: 5
+    answerDisplayDuration: 0
+    waitDurationAfterQuestion: 5
+  - talkingRat: 1
+    question: I see you
+    correctAnswer: 0
+    isQuestion: 0
+    answerWhenCorrect: 
+    answerWhenWrong: 
+    timeAddedWhenCorrect: 0
+    timeRemovedWhenWrong: 0
+    questionDisplayDuration: 7
+    answerDisplayDuration: 0
+    waitDurationAfterQuestion: 5
   - talkingRat: 0
     question: Hey, are you new here?
     correctAnswer: 1
+    isQuestion: 1
     answerWhenCorrect: I know I haven't see you around yet.
     answerWhenWrong: Really?....
     timeAddedWhenCorrect: 10
@@ -9704,6 +9731,7 @@ MonoBehaviour:
   - talkingRat: 1
     question: Can we be friends?
     correctAnswer: 1
+    isQuestion: 1
     answerWhenCorrect: Yes! Now I have two friends!
     answerWhenWrong: Then die here alone fucker!
     timeAddedWhenCorrect: 20
@@ -10614,6 +10642,34 @@ PrefabInstance:
     - target: {fileID: 2260352350613511638, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317135662817405146, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3187294714331667617, guid: 7528827b58ecf7e4691b39d2816fed42, type: 3}
       propertyPath: m_Layer

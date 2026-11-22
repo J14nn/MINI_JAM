@@ -60,6 +60,8 @@ public class DialogueSystem : MonoBehaviour
 
     private void WaitForAnswer()
     {
+        if (!currentQuestion.isQuestion) Answer(false);
+
         Quaternion currentHeadRot = headTransform.rotation;
 
         float diffX = Vector3.SignedAngle(currentHeadRot * Vector3.up, lastHeadRot * Vector3.up, Vector3.right);
@@ -82,6 +84,18 @@ public class DialogueSystem : MonoBehaviour
     private async void Answer(bool answer)
     {
         isWaitingForAnswer = false;
+
+        if (!currentQuestion.isQuestion)
+        {
+            await Awaitable.WaitForSecondsAsync(currentQuestion.questionDisplayDuration);
+            await Awaitable.WaitForSecondsAsync(currentQuestion.waitDurationAfterQuestion);
+
+            if (currentQuestionIndex < questions.Count - 1)
+                NextQuestion();
+
+            return;
+        }
+
         string response;
 
         if (answer == currentQuestion.correctAnswer)

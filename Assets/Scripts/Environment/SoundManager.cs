@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public AudioClip pickUpItemClip, eatChainClip, ratWalkClip, ratStabClip, ratDieClip,
-    cheesePickupClip, compartmentOpenClip, leverActiveClip, leverInactiveClip;
+    cheesePickupClip, compartmentOpenClip, leverActiveClip, leverInactiveClip, chainHitClip;
     [SerializeField] private AudioSource chainMovingSource;
     [SerializeField] private AudioClip[] chainMovingClips;
     [SerializeField] private float chainMovingSourceVolume = 0.2f;

@@ -7,6 +7,7 @@ public class Question
     public string question;
     [Tooltip("The answer the rat wants you to hear (yes or no).")]
     public bool correctAnswer;
+    public bool isQuestion = true;
     [Tooltip("What the rat answers when player chooses the correct answer.")]
     public string answerWhenCorrect;
     [Tooltip("What the rat answers when the player chooses wrong answer")]
