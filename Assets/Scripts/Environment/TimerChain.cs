@@ -9,11 +9,13 @@ public class TimerChain : MonoBehaviour
     [SerializeField] Transform playerHeadTransform;
 
     private Vector3 initialHeadPos;
+    private Vector3 initialTransformPos;
     public float timeElapsed = 0.000001f;
 
     private void Start()
     {
         initialHeadPos = playerHeadTransform.position;
+        initialTransformPos = transform.position;
     }
 
     private void Update()
@@ -29,5 +31,6 @@ public class TimerChain : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
         playerHeadTransform.position = initialHeadPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;
+        transform.position = initialTransformPos + Vector3.up * headPositionChangeY * timeElapsed / maxTime;
     }
 }

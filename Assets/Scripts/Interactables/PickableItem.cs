@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class PickableItem : MonoBehaviour
 {
-    public virtual void Pickup(LimbInteraction limb)
+    [HideInInspector] public LimbInteraction limbInteraction;
+    public bool canBePickedByMouth = true;
+
+    public virtual void Pickup()
     {
 
     }

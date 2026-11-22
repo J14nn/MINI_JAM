@@ -2,25 +2,36 @@ using UnityEngine;
 
 public class LimbInteraction : MonoBehaviour
 {
+    [HideInInspector] public LimbMover limbMover;
     public PickableItem heldItem;
     public Transform itemPosition;
 
     [SerializeField] private float itemGrabReach = 1f;
-    [SerializeField] private float itemHandSwitchRange = 2f;
     [SerializeField] private float interactionRange = 1f;
     [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] private LimbInteraction otherLimb;
 
+    private BodyPart bodyPart;
+
+    private void Start()
+    {
+        limbMover = GetComponent<LimbMover>();
+        bodyPart = GetComponent<BodyPart>();
+    }
 
     private void Update()
     {
         MoveItem();
         UpdateInteraction();
+
+        if (Input.player.Interact.WasPressedThisFrame() && Player.limbSelection.selectedPart == bodyPart)
+        {
+            TryToInteract();
+        }
     }
 
     private void UpdateInteraction()
     {
-        Collider[] hits = Physics.OverlapSphere(itemPosition.position, itemGrabReach, interactableLayer);
+        Collider[] hits = Physics.OverlapSphere(itemPosition.position, interactionRange, interactableLayer);
 
         if (hits != null && hits.Length > 0)
         {
@@ -48,14 +59,7 @@ public class LimbInteraction : MonoBehaviour
 
     private bool TryToInteractWithHandItem()
     {
-        if (heldItem is Addchain && IsInteractableNear(out Winch winch))
-        {
-            winch.AddChain(((Addchain)heldItem).lengthIncrease);
-            Destroy(heldItem.gameObject);
-            heldItem = null;
-            return true;
-        }
-        else if (heldItem is KeyInteractable && IsInteractableNear(out LockedCompartment compartment))
+        if (heldItem is KeyInteractable && IsInteractableNear(out LockedCompartment compartment))
         {
             compartment.Unlock();
             Destroy(heldItem.transform.parent.gameObject);
@@ -92,20 +96,28 @@ public class LimbInteraction : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, interactableLayer))
         {
             PickableItem pickable = hit.transform.GetComponentInParent<PickableItem>();
-            bool isOtherHandNear = Vector3.Distance(itemPosition.position, otherLimb.itemPosition.position) < itemHandSwitchRange;
 
-            if (pickable && isOtherHandNear && otherLimb.heldItem)
+            if (Vector3.Distance(hit.point, itemPosition.position) > itemGrabReach)
             {
-                heldItem = pickable;
-                heldItem.Pickup(this);
-                otherLimb.heldItem = null;
-                Player.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
-                return true;
+                return false;
             }
-            else if (pickable)
+
+            if (pickable)
             {
+                if (!pickable.canBePickedByMouth && Player.limbSelection.selectedPart is HeadMover)
+                {
+                    return false;
+                }
+
+                if (pickable.limbInteraction)
+                {
+                    pickable.limbInteraction.heldItem = null;
+                    Player.limbSelection.SelectPartNextFrame(GetComponent<BodyPart>());
+                }
+
                 heldItem = pickable;
-                heldItem.Pickup(this);
+                heldItem.Pickup();
+                pickable.limbInteraction = this;
                 return true;
             }
         }
