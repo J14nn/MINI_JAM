@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,29 +7,29 @@ public class MainMenu : MonoBehaviour
     private GameObject exitButton;
     private GameObject controlsButton;
 
+    private GameObject mainMenuPanel;
+
     private GameObject controlsMenu;
 
 
 //helper functions
 
-    void hide(GameObject gameobject)
+    void Hide(GameObject gameobject)
     {
         gameobject.SetActive(false);
     }
 
-    void show (GameObject gameobject)
+    void Show (GameObject gameobject)
     {
         gameobject.SetActive(true);
     }
 //awake
     void Awake()
     {
-        startButton = GameObject.Find("StartButton");
-        exitButton = GameObject.Find("ExitButton");
-        controlsButton = GameObject.Find("ControlsButton");
+        mainMenuPanel = GameObject.Find("MainMenuPanel");
 
         controlsMenu = GameObject.Find("ControlsMenu");
-        hide(controlsMenu);
+        Hide(controlsMenu);
     }
     
 
@@ -49,18 +48,14 @@ public class MainMenu : MonoBehaviour
 
     public void onReturnClicked()
     {
-        hide(controlsMenu);
+        Hide(controlsMenu);
 
-        show(startButton);
-        show(exitButton);
-        show(controlsButton);
+        Show(mainMenuPanel);
     }
     public void onControlsClicked()
     {
-        hide(startButton);
-        hide(exitButton);
-        hide(controlsButton);
+        Hide(mainMenuPanel);
 
-        show(controlsMenu);
+        Show(controlsMenu);
     }
 }
