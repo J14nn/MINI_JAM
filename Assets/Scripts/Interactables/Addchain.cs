@@ -18,4 +18,13 @@ public class Addchain : PickableItem
         chainObject.SetActive(false);
         handObject.SetActive(true);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Winch winch))
+        {
+            winch.AddChain(lengthIncrease);
+            Destroy(gameObject, 0.1f);
+        }
+    }
 }

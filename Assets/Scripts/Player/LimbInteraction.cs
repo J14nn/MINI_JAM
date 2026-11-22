@@ -106,6 +106,11 @@ public class LimbInteraction : MonoBehaviour
 
             if (pickable)
             {
+                if (!pickable.canBePickedByMouth && Player.limbSelection.selectedPart is HeadMover)
+                {
+                    return false;
+                }
+
                 if (pickable.limbInteraction)
                 {
                     pickable.limbInteraction.heldItem = null;

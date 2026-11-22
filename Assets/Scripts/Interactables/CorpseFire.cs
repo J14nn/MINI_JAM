@@ -1,15 +1,22 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class CorpseFire : MonoBehaviour
 {
-    [Tooltip("How long it takes the rat to notice fire and move.")]
-    [SerializeField] private float ratNoticeFireTime = 4f;
+    [SerializeField] private float fireSpreadTime = 4f;
     [SerializeField] private Rat rat;
+    [SerializeField] private List<GameObject> particleSystems;
 
     public async void StartFire()
     {
-        await Awaitable.WaitForSecondsAsync(ratNoticeFireTime);
+        float timePerFire = fireSpreadTime / particleSystems.Count;
+
+        foreach (GameObject obj in particleSystems)
+        {
+            obj.SetActive(true);
+            await Awaitable.WaitForSecondsAsync(timePerFire);
+        }
 
         rat.MoveToPlayer();
     }
