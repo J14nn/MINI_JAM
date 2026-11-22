@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LimbInteraction : MonoBehaviour
 {
+    [HideInInspector] public LimbMover limbMover;
     public PickableItem heldItem;
     public Transform itemPosition;
 
@@ -12,6 +13,10 @@ public class LimbInteraction : MonoBehaviour
     [SerializeField] private float interactionRange = 1f;
     [SerializeField] private LayerMask interactableLayer;
 
+    private void Start()
+    {
+        limbMover = GetComponent<LimbMover>();
+    }
 
     private void Update()
     {

@@ -4,8 +4,9 @@ using UnityEngine;
 public class LimbMover : BodyPart
 {
     public Transform limbTarget;
+    public Transform limbPivot;
+
     [SerializeField] private TimerChain timerChain;
-    [SerializeField] private Transform limbPivot;
     [SerializeField] private LayerMask defaultLayer;
     [SerializeField] private float minReach = 1f;
     [SerializeField] private float maxReach = 5f;
