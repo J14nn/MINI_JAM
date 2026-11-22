@@ -9,6 +9,8 @@ public class LimbSelection : MonoBehaviour
 
     private void Update()
     {
+        if (Globals.hasWon) return;
+
         UpdateCursor();
 
         if (Input.player.MoveLimb.WasPressedThisFrame())

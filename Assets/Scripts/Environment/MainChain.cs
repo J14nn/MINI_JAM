@@ -18,6 +18,7 @@ public class MainChain : MonoBehaviour
 
     private void Update()
     {
+        if (Globals.hasWon) return;
         UpdateChainsAndLimbs();
     }
 

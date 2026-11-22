@@ -12,9 +12,18 @@ public class Globals : MonoBehaviour
     public static Texture2D cursorInteraction;
     public static SoundManager soundManager;
     public static bool isGameOver;
+    public static bool hasWon;
+    public static PlayerRagdoll playerRagdoll;
+
+    private void Awake()
+    {
+        isGameOver = false;
+        hasWon = false;
+    }
 
     private void Start()
     {
+        playerRagdoll = GetComponent<PlayerRagdoll>();
         soundManager = FindAnyObjectByType<SoundManager>();
         limbSelection = GetComponent<LimbSelection>();
         playerLayer = _playerLayer;

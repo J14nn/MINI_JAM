@@ -40,9 +40,10 @@ public class FireIronTrigger : MonoBehaviour
 
         if (other.transform == chainContraption && selectedTransform && selectedTransform == rat.transform)
         {
+            Globals.hasWon = true;
             Globals.soundManager.PlaySound(Globals.soundManager.ratDieClip);
             Globals.soundManager.PlayMachineBreakdown();
-            Debug.Log("You won");
+            Globals.playerRagdoll.EnableRagdoll();
         }
     }
 }
