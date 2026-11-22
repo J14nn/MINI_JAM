@@ -29,16 +29,24 @@ public class MainChain : MonoBehaviour
         {
             timerChain.timeElapsed += Time.deltaTime * (timeChainSpeedMultiplier - 1f);
 
-            List<Chain> longestChains = chains.OrderByDescending(chain => chain.usedLength).ToList();
+            /*
+            // DISABLED: Automatically pulling back other limbs.
+
+            List<Chain> longestChains = chains
+                .OrderByDescending(chain => chain.usedLength)
+                .ToList();
+
             float shortenAmount = usedLength - totalMaxLength;
 
             foreach (Chain chain in longestChains)
             {
-                if (!limbSelection.selectedPart || chain != limbSelection.selectedPart.chain)
+                if (!limbSelection.selectedPart ||
+                    chain != limbSelection.selectedPart.chain)
                 {
                     chain.TryToShortenChain(shortenAmount);
                 }
             }
+            */
 
             UpdateUsedLength();
 
