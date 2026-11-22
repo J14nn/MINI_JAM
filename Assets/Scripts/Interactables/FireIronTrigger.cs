@@ -4,14 +4,15 @@ public class FireIronTrigger : MonoBehaviour
 {
     [SerializeField] private Transform cheeseTransform;
     [SerializeField] private Rat rat;
+    [SerializeField] private Transform chainContraption;
 
-    private bool hasCheese;
+    private Transform selectedTransform;
 
     private void Update()
     {
-        if (hasCheese)
+        if (selectedTransform)
         {
-            cheeseTransform.position = transform.position;
+            selectedTransform.position = transform.position;
         }
     }
 
@@ -19,13 +20,25 @@ public class FireIronTrigger : MonoBehaviour
     {
         if (other.transform == cheeseTransform)
         {
-            hasCheese = true;
+            selectedTransform = cheeseTransform;
         }
-        if (hasCheese && other.transform == rat.transform)
+
+        if (cheeseTransform && selectedTransform == cheeseTransform && other.transform == rat.transform)
         {
             Destroy(cheeseTransform.gameObject);
-            hasCheese = false;
+            cheeseTransform = null;
+            selectedTransform = null;
             rat.ReceiveCheese();
+        }
+
+        if (other.transform == rat.transform && rat.canBeStabbed)
+        {
+            selectedTransform = rat.transform;
+        }
+
+        if (other.transform == chainContraption && selectedTransform && selectedTransform == rat.transform)
+        {
+            Debug.Log("You won");
         }
     }
 }

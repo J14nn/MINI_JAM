@@ -4,7 +4,7 @@ public class FireIron : PickableItem
 {
     private void Update()
     {
-        if (limbInteraction)
+        if (limbInteraction && limbInteraction.limbMover)
         {
             Vector3 handDir = limbInteraction.limbMover.limbTarget.position - limbInteraction.limbMover.limbPivot.position;
             handDir.Normalize();
