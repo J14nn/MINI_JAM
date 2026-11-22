@@ -7,7 +7,7 @@ public class Lever : MonoBehaviour
     [SerializeField] private float pushDownSpeed = 20f;
     [SerializeField] private float minAngle = 40f;
     [SerializeField] private float maxAngle = 130f;
-    [SerializeField] private float activationAngle = 45;
+    [SerializeField] private float activationAngle = 125;
 
     public bool isActivated;
     private float _currentAngle;
@@ -21,31 +21,29 @@ public class Lever : MonoBehaviour
 
     private void Update()
     {
+        if (isActivated) return;
+
         CheckForActivation();
         Release();
     }
 
     private void Release()
     {
-        _currentAngle = Mathf.Clamp(_currentAngle + releaseSpeed * Time.deltaTime, minAngle, maxAngle);
+        _currentAngle = Mathf.Clamp(_currentAngle - releaseSpeed * Time.deltaTime, minAngle, maxAngle);
         leverPivot.localRotation = Quaternion.Euler(_currentAngle, 0f, 0f);
     }
 
     public void PushDown()
     {
-        _currentAngle = Mathf.Clamp(_currentAngle + (-releaseSpeed - pushDownSpeed) * Time.deltaTime, minAngle, maxAngle);
+        _currentAngle = Mathf.Clamp(_currentAngle + (releaseSpeed + pushDownSpeed) * Time.deltaTime, minAngle, maxAngle);
         leverPivot.localRotation = Quaternion.Euler(_currentAngle, 0f, 0f);
     }
 
     private void CheckForActivation()
     {
-        if (leverPivot.localEulerAngles.x < activationAngle)
+        if (leverPivot.localEulerAngles.x > activationAngle)
         {
             isActivated = true;
-        }
-        else
-        {
-            isActivated = false;
         }
     }
 }
