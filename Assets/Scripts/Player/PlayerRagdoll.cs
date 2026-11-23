@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ public class PlayerRagdoll : MonoBehaviour
 {
     [SerializeField] private Rig rig;
     [SerializeField] private List<TwoBoneIKConstraint> IKs;
+    [SerializeField] private CanvasGroup winScreen;
 
     private RagdollComponent[] ragdolls;
 
@@ -34,7 +36,7 @@ public class PlayerRagdoll : MonoBehaviour
         }
     }
 
-    public void EnableRagdoll()
+    public async Task EnableRagdoll()
     {
         rig.weight = 0f;
 
@@ -47,5 +49,8 @@ public class PlayerRagdoll : MonoBehaviour
         {
             ik.enabled = false;
         }
+
+        await Awaitable.WaitForSecondsAsync(2f);
+        winScreen.FadeIn(1f);
     }
 }

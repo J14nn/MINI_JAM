@@ -28,7 +28,7 @@ public class MainChain : MonoBehaviour
 
         if (usedLength > totalMaxLength)
         {
-            timerChain.timeElapsed += Time.deltaTime * (timeChainSpeedMultiplier - 1f);
+            //timerChain.timeElapsed += Time.deltaTime * (timeChainSpeedMultiplier - 1f);
 
             /*
             // DISABLED: Automatically pulling back other limbs.

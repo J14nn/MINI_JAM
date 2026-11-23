@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Addchain : MonoBehaviour
+public class Addchain : PickableItem
 {
     public float lengthIncrease = 1.5f;
+    public bool isPickable = false;
 
     [SerializeField] private GameObject chainObject;
 
@@ -15,6 +16,19 @@ public class Addchain : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
+        if (!isPickable) return;
+        MoveChainToHand();
+    }
+
+    private void MoveChainToHand()
+    {
+        if (!limbInteraction) return;
+
+        transform.position = limbInteraction.itemPosition.position;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Winch winch) && !wasAdded)
@@ -25,9 +39,9 @@ public class Addchain : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (Time.time - lastHitTime > 1.2f && rb.linearVelocity.magnitude > 0.1f)
+        if (Time.time - lastHitTime > 1.2f && rb.linearVelocity.magnitude > 0.3f)
         {
             lastHitTime = Time.time;
             Globals.soundManager.PlaySound(Globals.soundManager.chainHitClip);

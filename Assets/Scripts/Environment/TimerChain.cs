@@ -36,7 +36,6 @@ public class TimerChain : MonoBehaviour
         {
             Globals.isGameOver = true;
             Globals.playerDeath.GameOver();
-            Globals.soundManager.PlayHeadRip();
         }
     }
 

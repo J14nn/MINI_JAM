@@ -62,6 +62,7 @@ public class LimbInteraction : MonoBehaviour
             compartment.Unlock();
             Destroy(heldItem.transform.parent.gameObject);
             heldItem = null;
+            itemGrabReach = 4f;
         }
     }
 
@@ -128,12 +129,12 @@ public class LimbInteraction : MonoBehaviour
             pickable = hit.transform.GetComponentInParent<PickableItem>();
 
             if (Vector3.Distance(hit.point, itemPosition.position) > itemGrabReach)
-                return false;
+                continue;
 
             if (pickable)
             {
                 if (!pickable.canBePickedByMouth && Globals.limbSelection.selectedPart is HeadMover)
-                    return false;
+                    continue;
 
                 return true;
             }

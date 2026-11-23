@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueSystem : MonoBehaviour
 {
     [SerializeField] private TimerChain timerChain;
+    [SerializeField] private Animator ratAnimator;
     [SerializeField] private float dialogueStartDelay = 10f;
     [SerializeField] private float textFadeTime = 1f;
     [SerializeField] private TextMeshProUGUI subtitleText;
@@ -43,6 +44,7 @@ public class DialogueSystem : MonoBehaviour
         currentQuestionIndex++;
         isWaitingForAnswer = true;
         subtitleText.text = currentQuestion.question;
+        ratAnimator.Play(currentQuestion.talkingRat == RatName.Rabies ? "Rabies talk" : "Ronnie talk");
         Globals.soundManager.PlayRatSound(currentQuestion.talkingRat);
         canvasGroup.FadeIn(textFadeTime);
         StartQuestionCountdown(currentQuestionIndex);
@@ -110,6 +112,7 @@ public class DialogueSystem : MonoBehaviour
         }
 
         subtitleText.text = response;
+        ratAnimator.Play(currentQuestion.talkingRat == RatName.Rabies ? "Rabies talk" : "Ronnie talk");
         Globals.soundManager.PlayRatSound(currentQuestion.talkingRat);
         await Awaitable.WaitForSecondsAsync(currentQuestion.answerDisplayDuration);
 
