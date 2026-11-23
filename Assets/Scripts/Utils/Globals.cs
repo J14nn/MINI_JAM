@@ -20,10 +20,6 @@ public class Globals : MonoBehaviour
     {
         isGameOver = false;
         hasWon = false;
-    }
-
-    private void Start()
-    {
         playerDeath = GetComponent<PlayerDeath>();
         playerRagdoll = GetComponent<PlayerRagdoll>();
         soundManager = FindAnyObjectByType<SoundManager>();
@@ -31,5 +27,10 @@ public class Globals : MonoBehaviour
         playerLayer = _playerLayer;
         cursorDefault = _cursorDefault;
         cursorInteraction = _cursorInteraction;
+    }
+
+    private void Start()
+    {
+
     }
 }

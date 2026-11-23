@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LimbInteraction : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class LimbInteraction : MonoBehaviour
         MoveItem();
         UpdateInteraction();
 
-        if (Input.player.Interact.WasPressedThisFrame() && Globals.limbSelection.selectedPart == bodyPart)
+        if (Mouse.current.rightButton.wasPressedThisFrame && Globals.limbSelection.selectedPart == bodyPart)
         {
             TryToInteract();
         }
@@ -120,7 +121,7 @@ public class LimbInteraction : MonoBehaviour
         pickable = null;
         if (heldItem) return false;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         RaycastHit[] hits = Physics.RaycastAll(ray, float.MaxValue, interactableLayer);
 
@@ -133,6 +134,7 @@ public class LimbInteraction : MonoBehaviour
 
             if (pickable)
             {
+                if (!pickable.canBePickedUp) continue;
                 if (!pickable.canBePickedByMouth && Globals.limbSelection.selectedPart is HeadMover)
                     continue;
 

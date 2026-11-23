@@ -886,6 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Torch
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 1
   holdTime: 1
   groundTransform: {fileID: 1925534224}
   corpseFire: {fileID: 1256716290}
@@ -4279,6 +4280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Addchain
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 1
   lengthIncrease: 4.5
   isPickable: 0
   chainObject: {fileID: 1213585826}
@@ -4776,6 +4778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KeyInteractable
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 1
   joint: {fileID: 575846916}
   rb: {fileID: 575846917}
   lever: {fileID: 1122219356}
@@ -6269,6 +6272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickableItem
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 1
 --- !u!135 &838351694
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8631,6 +8635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Addchain
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 1
   lengthIncrease: 1.5
   isPickable: 1
   chainObject: {fileID: 1133427672}
@@ -9760,6 +9765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Addchain
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 0
   lengthIncrease: 4.5
   isPickable: 0
   chainObject: {fileID: 1213585826}
@@ -10184,6 +10190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FireIron
   limbInteraction: {fileID: 0}
   canBePickedByMouth: 1
+  canBePickedUp: 1
 --- !u!1 &1305915938
 GameObject:
   m_ObjectHideFlags: 0

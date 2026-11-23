@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LimbSelection : MonoBehaviour
 {
@@ -7,17 +8,22 @@ public class LimbSelection : MonoBehaviour
 
     [SerializeField] private LayerMask playerLayer;
 
+    private void Start()
+    {
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+    }
+
     private void Update()
     {
         if (Globals.hasWon) return;
 
         UpdateCursor();
 
-        if (Input.player.MoveLimb.WasPressedThisFrame())
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             SelectLimb();
         }
-        else if (Input.player.MoveLimb.WasReleasedThisFrame())
+        else if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             selectedPart = null;
         }
@@ -34,7 +40,7 @@ public class LimbSelection : MonoBehaviour
 
     private void SelectLimb()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, playerLayer))
         {
@@ -56,10 +62,10 @@ public class LimbSelection : MonoBehaviour
 
     private void UpdateCursor()
     {
-        Vector3 pos = Input.mousePosition;
+        Vector3 pos = Mouse.current.position.ReadValue();
         if (pos.x < 0f || pos.x > Screen.width || pos.y < 0f || pos.y > Screen.height || !Application.isFocused) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if ((!selectedPart && Physics.Raycast(ray, out RaycastHit _, float.MaxValue, playerLayer))
             || (selectedPart && selectedPart.limbInteraction && selectedPart.limbInteraction.CanPickUpItem(out PickableItem _)

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LimbMover : BodyPart
 {
@@ -30,7 +31,7 @@ public class LimbMover : BodyPart
 
     public override void Move()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, defaultLayer))
         {

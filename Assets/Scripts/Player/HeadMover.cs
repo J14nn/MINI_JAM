@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HeadMover : BodyPart
 {
@@ -13,7 +14,7 @@ public class HeadMover : BodyPart
     public override void Move()
     {
         float depth = Mathf.Abs(Camera.main.transform.position.z - transform.position.z);
-        Vector2 screenMouse = Input.player.MousePosition.ReadValue<Vector2>();
+        Vector2 screenMouse = Mouse.current.position.ReadValue();
         Vector2 worldMouse = Camera.main.ScreenToWorldPoint(new Vector3(screenMouse.x, screenMouse.y, depth));
         Vector2 headPos = transform.position;
         Vector2 dir = (headPos - worldMouse).normalized;

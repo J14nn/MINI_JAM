@@ -36,7 +36,7 @@ public class PlayerRagdoll : MonoBehaviour
         }
     }
 
-    public async Task EnableRagdoll()
+    public async void EnableRagdoll()
     {
         rig.weight = 0f;
 
