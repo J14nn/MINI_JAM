@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] private float textFadeTime = 1f;
     [SerializeField] private TextMeshProUGUI subtitleText;
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private CanvasGroup tutorialGroup;
     [SerializeField] private Transform headTransform;
     [Tooltip("Total movement of the head in degrees that counts as a yes.")]
     [SerializeField] private float movementToAnswerYes = 150f;
@@ -37,7 +39,7 @@ public class DialogueSystem : MonoBehaviour
         }
     }
 
-    private void NextQuestion()
+    private async void NextQuestion()
     {
         headMoveAmount = Vector2.zero;
         lastHeadRot = headTransform.rotation;
@@ -48,6 +50,13 @@ public class DialogueSystem : MonoBehaviour
         Globals.soundManager.PlayRatSound(currentQuestion.talkingRat);
         canvasGroup.FadeIn(textFadeTime);
         StartQuestionCountdown(currentQuestionIndex);
+
+        if (currentQuestionIndex == 1)
+        {
+            tutorialGroup.FadeIn(1f);
+            await Awaitable.WaitForSecondsAsync(10f);
+            tutorialGroup.FadeOut(1f);
+        }
     }
 
     private async void StartQuestionCountdown(int questionIndex)
