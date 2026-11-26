@@ -47,7 +47,7 @@ public class LimbMover : BodyPart
                 Globals.soundManager.PlayChainMoving();
             }
 
-            velocity -= velocity * friction * Time.deltaTime;
+            velocity *= Mathf.Exp(-friction * Time.deltaTime);
 
             if (velocity.magnitude > maxSpeed)
             {
